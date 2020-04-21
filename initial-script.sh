@@ -12,15 +12,31 @@ CHECK="✔"
 CLOSE="✗"
 
 function msg() {
-	echo " \033[0;37m$1\033[0m";
+	echo -e " \033[0;37m$1\033[0m";
 }
 
 function msg_bold() {
-	echo " \033[1;34m$1\033[0m";
+	echo -e " \033[1;34m$1\033[0m";
 }
 
 function msg_ok() {
-	echo " $ARROW\033[1;32m  $1 $CHECK\033[0m";
+	echo -e " $ARROW\033[1;32m  $1 $CHECK\033[0m";
+}
+
+function has() {
+	[[ -x "$(command -v "$1")" ]];
+}
+
+function has_not() {
+	! has "$1" ;
+}
+
+function has_dir() {
+	[[ -d "$1" ]];
+}
+
+function has_not_dir() {
+	! has_dir "$1" ;
 }
 
 # ----------------------------------
