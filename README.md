@@ -1,5 +1,5 @@
 # my-ubuntu-setup
-configure my apps and ubuntu (theme, configs)
+This project allow me install my personal apps, configure my ubuntu (themes, configs, etc) so fast.
 
 ### How to use
 
@@ -21,3 +21,5 @@ After that execute last command that start the setup script:
 ```
 bash ~/.my-ubuntu-setup/setup.sh
 ```
+
+So, that's it !
