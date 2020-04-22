@@ -10,4 +10,6 @@ curl -o- https://raw.githubusercontent.com/marlonklc/my-ubuntu-setup/master/init
 when finished it, do logout and login back again in your account to use your new default shell.
 
 After that execute last command that start the setup script:
-`bash ~/.my-ubuntu-setup/setup.sh`
+```
+bash ~/.my-ubuntu-setup/setup.sh
+```
