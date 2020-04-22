@@ -11,16 +11,16 @@ hello
 
 # Upgrade
 sudo apt-get update &> /dev/null
-msg_ok "update"
+msg_ok "apt-get update"
 
 sudo apt-get upgrade -y &> /dev/null
-msg_ok "upgrade"
+msg_ok "apt-get upgrade"
 
 sudo apt-get dist-upgrade -y &> /dev/null
-msg_ok "dist-upgrade"
+msg_ok "apt-get dist-upgrade"
 
 
-# Git
+# Git (distributed version control system)
 if has_not git; then
 	sudo apt-get install -y \
 		git \
@@ -28,22 +28,22 @@ if has_not git; then
 	git config --global user.name "Marlon Klagenberg"
     git config --global user.email "marlon.klc@gmail.com"
 fi
-msg_ok "git"
+msg_ok "git installed"
 
 
-# ZSH
+# ZSH (powerful command line interpreter for scripting languages)
 if ! which zsh &> /dev/null; then
 	sudo apt-get install zsh -y
 	chsh -s $(which zsh)
 fi
-msg_ok "zsh"
+msg_ok "zsh installed"
 
 
 # clone setup repository
-if ! [[ -d "$HOME/.setup" ]]; then
-    git clone https://github.com/marlonklc/my-ubuntu-setup.git $HOME/.setup
+if ! [[ -d "$HOME/.my-ubuntu-setup" ]]; then
+    git clone https://github.com/marlonklc/my-ubuntu-setup.git $HOME/.my-ubuntu-setup
 fi
-msg_ok "setup"
+msg_ok "cloned repository on github"
 
 # Finished
 msg ""
