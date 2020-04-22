@@ -15,7 +15,7 @@ After that execute this command below to install git, zsh and create setup folde
 curl -o- https://raw.githubusercontent.com/marlonklc/my-ubuntu-setup/master/initial-script.sh | bash
 ```
 
-When finished it, do logout and login back again in your account to use your new default shell.
+When finished it, you need logout and login back again in your account to use your new default shell.
 
 After that execute last command that start the setup script:
 ```
