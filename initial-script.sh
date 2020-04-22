@@ -40,9 +40,8 @@ msg_ok "zsh installed"
 
 
 # clone setup repository
-if ! [[ -d "$HOME/.my-ubuntu-setup" ]]; then
-    git clone https://github.com/marlonklc/my-ubuntu-setup.git $HOME/.my-ubuntu-setup
-fi
+rm -Rf $HOME/.my-ubuntu-setup
+git clone https://github.com/marlonklc/my-ubuntu-setup.git $HOME/.my-ubuntu-setup
 msg_ok "cloned repository on github"
 
 # Finished
