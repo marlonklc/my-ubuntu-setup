@@ -4,42 +4,10 @@
 sudo -v
 
 # utilities
-#source ./utils.sh
+source <(curl -s https://raw.githubusercontent.com/marlonklc/my-ubuntu-setup/master/utils.sh)
 
-# ----------------------------------
-ARROW="→"
-CHECK="✔"
-CLOSE="✗"
-
-function msg() {
-	echo -e " \033[0;37m$1\033[0m";
-}
-
-function msg_bold() {
-	echo -e " \033[1;34m$1\033[0m";
-}
-
-function msg_ok() {
-	echo -e " $ARROW\033[1;32m  $1 $CHECK\033[0m";
-}
-
-function has() {
-	[[ -x "$(command -v "$1")" ]];
-}
-
-function has_not() {
-	! has "$1" ;
-}
-
-function has_dir() {
-	[[ -d "$1" ]];
-}
-
-function has_not_dir() {
-	! has_dir "$1" ;
-}
-
-# ----------------------------------
+# show banner
+hello
 
 # Upgrade
 sudo apt-get update &> /dev/null
@@ -72,10 +40,10 @@ msg_ok "zsh"
 
 
 # clone setup repository
-#if ! [[ -d "$HOME/.setup" ]]; then
-#    git clone https://github.com/marlonklc/my-ubuntu-setup.git $HOME/.setup
-#fi
-#msg_ok "setup"
+if ! [[ -d "$HOME/.setup" ]]; then
+    git clone https://github.com/marlonklc/my-ubuntu-setup.git $HOME/.setup
+fi
+msg_ok "setup"
 
 # Finished
 msg ""
