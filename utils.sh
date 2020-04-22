@@ -7,7 +7,7 @@ ARROW="→"
 CHECK="✔"
 CLOSE="✗"
 
-# Loggers
+# Messages
 # ----------------------------------
 
 function msg() {
