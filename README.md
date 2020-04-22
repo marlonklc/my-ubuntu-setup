@@ -12,14 +12,15 @@ $ sudo apt install curl
 
 After that execute this command below to install git, zsh and create setup folder:
 ```
-curl -o- https://raw.githubusercontent.com/marlonklc/my-ubuntu-setup/master/initial-script.sh | bash
+$ curl -o- https://raw.githubusercontent.com/marlonklc/my-ubuntu-setup/master/initial-script.sh | bash
 ```
 
 When finished it, you need logout and login back again in your account to use your new default shell.
 
 After that execute last command that start the setup script:
 ```
-bash ~/.my-ubuntu-setup/setup.sh
+$ cd ~/.my-ubuntu-setup
+$ bash ./setup.sh
 ```
 
 So, that's it !

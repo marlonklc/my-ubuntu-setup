@@ -5,6 +5,7 @@ hello
 # General installs
 sudo apt-get install -y \
 	build-essential \
+	ca-certificates \
 	apt-transport-https \
     htop \
 	indicator-multiload \
@@ -18,6 +19,7 @@ sudo apt-get install -y \
 
 msg " -- General installs --"
 msg_ok "build-essential"
+msg_ok "ca-certificates"
 msg_ok "apt-transport-https"
 msg_ok "htop" # more visual than command "top"
 msg_ok "indicator-multiload"
@@ -45,7 +47,7 @@ if has_not dbeaver; then
     echo "deb https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
 	wget -O - https://dbeaver.io/debs/dbeaver.gpg.key | sudo apt-key add -
 	sudo apt-get update
-	sudo apt-get install dbeaver-ce
+	sudo apt-get install dbeaver-ce -y
 fi
 msg_ok "dbeaver installed"
 
@@ -53,17 +55,13 @@ msg_ok "dbeaver installed"
 # Docker
 if has_not docker; then
 	sudo apt-get update
-	sudo apt-get install apt-transport-https ca-certificates -y
-	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D -y
-
-	echo deb https://apt.dockerproject.org/repo ubuntu-wily main | sudo tee /etc/apt/sources.list.d/docker.list
+	sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –
+    sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable" 
 	sudo apt-get update
-	sudo apt-get purge lxc-docker -y
-	apt-cache policy docker-engine
-	sudo apt-get install linux-image-extra-$(uname -r) -y
-	sudo apt-get update
-	sudo apt-get install docker-engine -y
-	sudo service docker start
+	sudo apt-get install docker-ce
+	sudo systemctl start docker
+    sudo systemctl enable docker
 	sudo groupadd docker
 	sudo usermod -aG docker $(whoami)
 fi
@@ -71,44 +69,14 @@ msg_ok "docker installed"
 
 
 # Java
-if has_not_dir "$HOME/.java"; then
-	sudo add-apt-repository ppa:openjdk-r/ppa
+if has_not java; then
+	sudo add-apt-repository ppa:openjdk-r/ppa -y
 	sudo apt-get update
-	sudo apt-get install openjdk-8-jdk
+	sudo apt-get install -y openjdk-8-jdk
 fi
 msg_ok "openjdk-8 installed"
 
-
-# Mutate (great spotlight)
-if has_not mutate; then
-	# Dependencies
-	sudo apt-get install -y \
-		qt5-qmake \
-		qt5-default \
-		libgtk2.0-dev \
-		libqt5x11extras5-dev \
-		libboost-regex-dev
-
-	# Mutate
-	git clone https://github.com/qdore/Mutate.git ~/.softwares/Mutate
-	cd ~/.softwares/Mutate/src
-	qmake
-	make
-
-	sudo make install
-	cd ..
-	sudo cp info/mutate.png /usr/share/icons
-	sudo cp info/Mutate.desktop /usr/share/applications
-	mkdir -p ~/.config/Mutate
-	cp -R config/* ~/.config/Mutate
-	chmod -R a+x ~/.config/Mutate/scripts
-	chmod -R a+w ~/.config/Mutate
-	sed -i "s|{home}|$HOME|g" ~/.config/Mutate/config.ini
-
-	cd ~
-fi
-msg_ok "mutate installed"
-
+exit
 
 # node, nvm, npm
 if has_not_dir "$HOME/.nvm"; then
@@ -197,3 +165,4 @@ sudo apt-get autoremove &> /dev/null -y
 source ~/.zshrc
 
 msg ""
+
