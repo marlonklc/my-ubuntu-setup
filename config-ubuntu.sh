@@ -6,6 +6,11 @@
 # Configurations, UI and performance tweaks
 # --------------------------------------------------------------------
 
+
+msg ""
+msg "######## Ubuntu configuration #########"
+msg ""
+
 gsettings set com.canonical.Unity always-show-menus true
 msg_ok "Always show options menu"
 
