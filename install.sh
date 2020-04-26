@@ -33,15 +33,19 @@ msg ""
 msg "###################################"
 msg ""
 
-msg "Updating..."
+msg "updating ..."
 sudo apt-get update &> /dev/null
+msg_ok "updated"
+
 
 msg ""
 msg "######## My personal apps #########"
 msg ""
 
+
 # Chrome web browser
 if has_not google-chrome; then
+    msg "installing google chrome ..."
     wget -O ~/Downloads/google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /dev/null
     sudo apt install ~/Downloads/google-chrome.deb -y > /dev/null
     rm ~/Downloads/google-chrome.deb > /dev/null
@@ -51,6 +55,7 @@ msg_ok "google chrome installed"
 
 # Dbeaver
 if has_not dbeaver; then
+    msg "installing dbeaver ..."
     echo "deb https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list > /dev/null
 	wget -O - https://dbeaver.io/debs/dbeaver.gpg.key | sudo apt-key add - > /dev/null
 	sudo apt-get update > /dev/null
@@ -61,6 +66,7 @@ msg_ok "dbeaver installed"
 
 # Docker
 if has_not docker; then
+    msg "installing docker ..."
 	sudo apt-get update &> /dev/null
     sudo apt-get install -y \
         apt-transport-https \
@@ -82,6 +88,7 @@ msg_ok "docker installed"
 
 # Java
 if has_not java; then
+    msg "installing openjdk-8 ..."
 	sudo add-apt-repository ppa:openjdk-r/ppa -y > /dev/null
 	sudo apt-get update &> /dev/null
 	sudo apt-get install -y openjdk-8-jdk > /dev/null
@@ -91,6 +98,7 @@ msg_ok "openjdk-8 installed"
 
 # node, nvm, npm
 if has_not_dir "$HOME/.nvm"; then
+    msg "installing node, nvm, npm ..."
     sudo apt-get update &> /dev/null
     sudo apt-get install -y build-essential libssl-dev > /dev/null
 	curl https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh &> /dev/null | bash > /dev/null
@@ -110,6 +118,7 @@ msg_ok "nvm, node, npm installed"
 
 # Oh My ZSH (framework for managing your zsh configuration)
 if has_not_dir "$HOME/.oh-my-zsh"; then
+    msg "installing oh-my-zsh ..."
 	chsh -s /usr/bin/zsh
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" > /dev/null
 
@@ -124,35 +133,43 @@ msg_ok "oh-my-zsh installed"
 
 
 # Pip3 (python dependencies manager)
-if has_not pip; then
+if has_not pip3; then
+    msg "installing pip3 ..."
 	sudo apt-get install -y python3-pip > /dev/null
 fi
 msg_ok "pip3 installed"
 
 
-# Redshift (adjusts the color temperature of your screen to help your eyes hurt less)
-if has_not redshift; then
-	sudo apt-get install -y \
-		redshift \
-		redshift-gtk > /dev/null
-fi
-msg_ok "redshift installed"
-
-
-# Rescuetime (track activities to time management)
-if has_not rescuetime; then
-	wget -O ~/Downloads/rescuetime.deb https://www.rescuetime.com/installers/rescuetime_current_amd64.deb > /dev/null
-	sudo dpkg --force-depends -i ~/Downloads/rescuetime.deb > /dev/null
-	sudo apt-get install -fy > /dev/null
-	rm ~/Downloads/rescuetime.deb
-fi
-msg_ok "rescuetime"
-
 # Shutter (great print screensaver)
 if has_not shutter; then
+    msg "installing shutter ..."
 	sudo apt-get -y install shutter > /dev/null
 fi
 msg_ok "shutter installed"
+
+
+# IntelliJ IDE
+if has_not intellij-idea-community; then
+    msg "installing intellij ..."
+    sudo snap install intellij-idea-community --classic -y &> /dev/null
+fi
+msg_ok "intellij installed"
+
+
+# VS Code
+if has_not code; then
+    msg "installing vscode ..."
+    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+    curl https://packages.microsoft.com/keys/microsoft.asc &> /dev/null | gpg --dearmor > microsoft.gpg
+    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+    sudo apt-get update &> /dev/null
+    sudo apt-get install code -y &> /dev/null
+
+    # install extensions
+    code --install-extension vscjava.vscode-java-pack &> /dev/null # java pack
+    code --install-extension pivotal.vscode-boot-dev-pack &> /dev/null # spring pack
+fi
+msg_ok "vscode installed"
 
 
 msg ""

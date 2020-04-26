@@ -11,5 +11,5 @@ source ./config-ubuntu.sh
 msg ""
 msg "------------------------------------"
 msg ""
-msg_ok "Installation finished..."
+msg_ok "Installation finished !!!"
 msg ""

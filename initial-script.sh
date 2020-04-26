@@ -22,6 +22,7 @@ msg_ok "apt-get dist-upgrade"
 
 # Git (distributed version control system)
 if has_not git; then
+    msg "installing git ..."
 	sudo apt-get install -y \
 		git \
 		git-core &> /dev/null
@@ -33,6 +34,7 @@ msg_ok "git installed"
 
 # ZSH (powerful command line interpreter for scripting languages)
 if ! which zsh &> /dev/null; then
+    msg "installing zsh ..."
 	sudo apt-get install zsh -y > /dev/null
 	chsh -s $(which zsh) > /dev/null
 fi
@@ -44,7 +46,7 @@ rm -Rf $HOME/.my-ubuntu-setup
 git clone https://github.com/marlonklc/my-ubuntu-setup.git $HOME/.my-ubuntu-setup &> /dev/null
 msg_ok "cloned repository on github"
 
-# Finished
+
 msg ""
 msg_ok "Finished"
 msg ""
