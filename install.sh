@@ -106,6 +106,7 @@ if has_not_dir "$HOME/.nvm"; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc
 	source ~/.zshrc
+	nvm install npm &> /dev/null
 	nvm install node &> /dev/null
 	nvm use node &> /dev/null
 	nvm alias default node &> /dev/null
@@ -138,14 +139,6 @@ if has_not pip3; then
 	sudo apt-get install -y python3-pip > /dev/null
 fi
 msg_ok "pip3 installed"
-
-
-# Shutter (great print screensaver)
-if has_not shutter; then
-    msg "installing shutter ..."
-	sudo apt-get -y install shutter > /dev/null
-fi
-msg_ok "shutter installed"
 
 
 # IntelliJ IDE
